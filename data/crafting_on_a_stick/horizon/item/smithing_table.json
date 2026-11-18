@@ -1,0 +1,20 @@
+{
+  "template": "minecraft:stick",
+  "max_stack_size": 1,
+  "components": {
+    "minecraft:item_model": "crafting_on_a_stick:smithing_table",
+    "minecraft:item_name": {
+      "translate": "item.crafting_on_a_stick.smithing_table",
+      "with": [
+        {
+          "translate": "item.crafting_on_a_stick.template",
+          "with": [
+            {
+              "translate": "block.minecraft.smithing_table"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

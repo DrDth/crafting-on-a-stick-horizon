@@ -1,0 +1,17 @@
+{
+	"item.crafting_on_a_stick.template": "%s na tyči",
+	"itemGroup.crafting_on_a_stick": "Crafting na tyči",
+	"curios.identifier.crafting_on_a_stick": "Crafting na tyči",
+	"crafting_on_a_stick.key.open_curios": "Otevřít crafting na tyči",
+	"gui.crafting_on_a_stick.selection_wheel.no_tool": "Nemáš žádný nástroj",
+
+	"item.crafting_on_a_stick.crafting_table": "%s",
+	"item.crafting_on_a_stick.loom": "%s",
+	"item.crafting_on_a_stick.grindstone": "%s",
+	"item.crafting_on_a_stick.cartography_table": "%s",
+	"item.crafting_on_a_stick.stonecutter": "%s",
+	"item.crafting_on_a_stick.smithing_table": "%s",
+	"item.crafting_on_a_stick.anvil": "%s",
+	"item.crafting_on_a_stick.chipped_anvil": "%s",
+	"item.crafting_on_a_stick.damaged_anvil": "%s"
+}

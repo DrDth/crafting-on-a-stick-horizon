@@ -1,0 +1,8 @@
+id = "crafting_on_a_stick"
+name = "Crafting On A Stick"
+version = "1.21.0.6-horizon.1"
+description = "Workbenches on a stick: crafting table, loom, grindstone, cartography table, stonecutter, smithing table and anvil, usable anywhere."
+authors = ["OfekN (original mod)", "DrDth (Horizon port)"]
+api = "0.2"
+side = "both"
+capabilities = ["registries"]

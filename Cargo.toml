@@ -1,0 +1,14 @@
+[package]
+name = "crafting_on_a_stick"
+version = "0.1.0"
+edition = "2024"
+publish = false
+license = "GPL-3.0-only"
+
+[dependencies]
+# While open_station (horizon-rust/horizon#18347) is unreleased, the mod builds against a checkout of
+# that branch; once a Nightly has it, this becomes the pinned SDK path `cargo horizon-mod` writes.
+horizon-mod-api = { path = "../../../horizon-main/crates/horizon-mod-api" }
+
+# A mod is its own project, not a member of the game's workspace.
+[workspace]
