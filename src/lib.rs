@@ -5,13 +5,16 @@
 //!
 //! A port of OfekN's Crafting On A Stick (GPL-3.0), from its 1.21.0 sources.
 use mod_api::{
-    AnvilCraftPostEvent, BuildCreativeModeTabContentsEvent, ClientHost, Component, Compound,
-    Hand, Hooks, Host, HostSide, HostTransaction, InteractionResult, ItemKey, ItemPart, ItemPlace,
-    ItemResource, ItemStack, Registrar, RegistrationContext, ServerHost, StationClosingEvent, Tag,
-    UseItemEvent,
+    AnvilCraftPostEvent, BuildCreativeModeTabContentsEvent, ClientHost, ClientTickPreEvent,
+    Component, Compound, Flow, Hand, Hooks, Host, HostSide, HostTransaction, InputKeyEvent,
+    InteractionResult, ItemKey, ItemPart, ItemPlace, ItemResource, ItemStack, Registrar,
+    RegistrationContext, ScreenMouseButtonPressedPreEvent, ScreenRenderPostEvent, ServerHost,
+    StationClosingEvent, Tag, UseItemEvent,
 };
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex, OnceLock};
+
+mod wheel;
 
 const ID: &str = "crafting_on_a_stick";
 
@@ -154,6 +157,7 @@ struct State {
 #[derive(Default)]
 pub struct Mod {
     state: Arc<State>,
+    wheel: wheel::Wheel,
 }
 
 impl State {
@@ -294,6 +298,27 @@ impl Hooks for Mod {
             items.insert(path, key);
         }
         let _ = self.state.items.set(items);
+        self.wheel.register(registrar, self.state.clone());
+    }
+
+    fn client_tick_pre(&self, host: &mut dyn ClientHost, _: &mut ClientTickPreEvent) {
+        self.wheel.tick(&self.state, host);
+    }
+
+    fn input_key(&self, host: &mut dyn ClientHost, event: &mut InputKeyEvent<'_>) {
+        self.wheel.key(host, event);
+    }
+
+    fn screen_mouse_button_pressed_pre(
+        &self,
+        host: &dyn ClientHost,
+        event: &mut ScreenMouseButtonPressedPreEvent<'_>,
+    ) -> Flow {
+        self.wheel.click(host, event)
+    }
+
+    fn screen_render_post(&self, host: &dyn ClientHost, event: &mut ScreenRenderPostEvent<'_>) {
+        self.wheel.render(&self.state, host, event);
     }
 
     /// `ClientModEvents.event`: every stick joins the tools tab, in the original's order.

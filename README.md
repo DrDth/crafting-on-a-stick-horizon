@@ -6,11 +6,13 @@ Nine items carry a workbench: crafting table, loom, grindstone, cartography tabl
 
 The sticks are in the Tools & Utilities tab, after vanilla's items, as in the original.
 
-Not ported yet: the selection wheel and its key, the Curios slot (Horizon has no accessory slots), and the JEI catalysts.
+V (Options > Controls, under the mod's name) opens a stick you carry without holding it. A tap, or a single stick, opens the one picked last, or else the first you carry. Held, it shows every stick on a wheel: let go or left-click to open the one under the pointer, right-click to switch between the wheel and a row, Escape to close it. All anvils share one place on the wheel. Unlike the original, two crafting tables with different stored grids also share one, and the layout isn't kept when the game restarts.
+
+Not ported yet: the Curios slot (Horizon has no accessory slots) and the JEI catalysts.
 
 ## Building
 
-The mod needs `PlayerRef::open_station` and `station_closing` (horizon-rust/horizon#18364), and its item names need horizon-rust/horizon#18460. Until a Nightly has both, build it inside a Horizon checkout that does, such as the `atm` branch of [DrDth/horizon](https://github.com/DrDth/horizon/tree/atm): `cargo horizon-mod` builds against a checkout only when the mod lies inside it.
+The mod needs `PlayerRef::open_station` and `station_closing` (horizon-rust/horizon#18364); its item names need horizon-rust/horizon#18460, and the wheel in single player needs horizon-rust/horizon#18472. Until a Nightly has both, build it inside a Horizon checkout that does, such as the `atm` branch of [DrDth/horizon](https://github.com/DrDth/horizon/tree/atm): `cargo horizon-mod` builds against a checkout only when the mod lies inside it.
 
 ```sh
 git clone https://github.com/DrDth/crafting-on-a-stick-horizon <checkout>/.local/dev-mods/crafting_on_a_stick
