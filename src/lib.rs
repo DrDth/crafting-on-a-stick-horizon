@@ -5,9 +5,10 @@
 //!
 //! A port of OfekN's Crafting On A Stick (GPL-3.0), from its 1.21.0 sources.
 use mod_api::{
-    AnvilCraftPostEvent, Component, Compound, Hand, Hooks, Host, HostSide, HostTransaction,
-    InteractionResult, ItemKey, ItemPart, ItemPlace, ItemResource, ItemStack, Registrar,
-    RegistrationContext, ServerHost, StationClosingEvent, Tag, UseItemEvent,
+    AnvilCraftPostEvent, BuildCreativeModeTabContentsEvent, ClientHost, Component, Compound,
+    Hand, Hooks, Host, HostSide, HostTransaction, InteractionResult, ItemKey, ItemPart, ItemPlace,
+    ItemResource, ItemStack, Registrar, RegistrationContext, ServerHost, StationClosingEvent, Tag,
+    UseItemEvent,
 };
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex, OnceLock};
@@ -293,6 +294,25 @@ impl Hooks for Mod {
             items.insert(path, key);
         }
         let _ = self.state.items.set(items);
+    }
+
+    /// `ClientModEvents.event`: every stick joins the tools tab, in the original's order.
+    fn build_creative_mode_tab_contents(
+        &self,
+        _: &mut dyn ClientHost,
+        event: &mut BuildCreativeModeTabContentsEvent<'_>,
+    ) {
+        if event.tab != "minecraft:tools_and_utilities" {
+            return;
+        }
+        let Some(items) = self.state.items.get() else {
+            return;
+        };
+        for (path, _) in STATIONS {
+            if let Some(stack) = items.get(path).and_then(|&key| ItemStack::new(key, 1)) {
+                event.items.push(stack);
+            }
+        }
     }
 
     /// `CraftingMenu.removed` of the mod: the grid goes into the first crafting table on a
